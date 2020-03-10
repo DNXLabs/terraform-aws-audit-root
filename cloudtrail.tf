@@ -1,10 +1,9 @@
 resource "aws_cloudtrail" "audit" {
   count                 = var.cloudtrail ? 1 : 0
-  name                  = "${var.name}-cloudtrail"
-  s3_bucket_name        = aws_s3_bucket.cloudtrail[0].id
+  name                  = "${var.org_name}-cloudtrail"
+  s3_bucket_name        = var.cloudtrail_s3_bucket_id
   is_multi_region_trail = true
   is_organization_trail = true
-  kms_key_id            = aws_kms_key.cloudtrail[0].arn
 
   event_selector {
     read_write_type           = "All"
@@ -67,56 +66,6 @@ EOF
 
 resource "aws_cloudwatch_log_group" "cloudtrail" {
   count      = var.cloudtrail ? 1 : 0
-  name       = "${var.name}-cloudtrail"
+  name       = "${var.org_name}-cloudtrail"
   kms_key_id = aws_kms_key.cloudtrail[0].arn
-}
-
-resource "aws_s3_bucket" "cloudtrail" {
-  count         = var.cloudtrail ? 1 : 0
-  bucket_prefix = "${var.name}-cloudtrail"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.cloudtrail[0].arn
-        sse_algorithm     = "aws:kms"
-      }
-    }
-  }
-}
-
-resource "aws_s3_bucket_policy" "cloudtrail" {
-  count  = var.cloudtrail ? 1 : 0
-  bucket = aws_s3_bucket.cloudtrail[0].id
-
-  policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AWSCloudTrailAclCheck",
-            "Effect": "Allow",
-            "Principal": {
-              "Service": "cloudtrail.amazonaws.com"
-            },
-            "Action": "s3:GetBucketAcl",
-            "Resource": "${aws_s3_bucket.cloudtrail[0].arn}"
-        },
-        {
-            "Sid": "AWSCloudTrailWrite",
-            "Effect": "Allow",
-            "Principal": {
-              "Service": "cloudtrail.amazonaws.com"
-            },
-            "Action": "s3:PutObject",
-            "Resource": "${aws_s3_bucket.cloudtrail[0].arn}/*",
-            "Condition": {
-                "StringEquals": {
-                    "s3:x-amz-acl": "bucket-owner-full-control"
-                }
-            }
-        }
-    ]
-}
-POLICY
 }
