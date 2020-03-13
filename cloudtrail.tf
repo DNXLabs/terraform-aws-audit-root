@@ -4,6 +4,7 @@ resource "aws_cloudtrail" "audit" {
   s3_bucket_name        = var.cloudtrail_s3_bucket_id
   is_multi_region_trail = true
   is_organization_trail = true
+  kms_key_id            = aws_kms_key.cloudtrail[0].arn
 
   event_selector {
     read_write_type           = "All"
