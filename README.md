@@ -3,6 +3,18 @@
 [![Lint Status](https://github.com/DNXLabs/terraform-aws-audit-root/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-audit-root/actions)
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-audit-root)](https://github.com/DNXLabs/terraform-aws-audit-root/blob/master/LICENSE)
 
+
+This terraform module is an audit module to apply into root account (master)
+
+In this module you have the option to :
+
+- Enable or not cloudtrail
+- Enable or not Guardduty
+- Create a S3 bucket for cloudtrail logs
+- Create IAM Roles and Policies for the Cloudtrail
+- Create AWS SSM parameter with the ID of Guardduty
+
+
 <!--- BEGIN_TF_DOCS --->
 
 ## Requirements
