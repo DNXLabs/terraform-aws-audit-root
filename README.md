@@ -21,7 +21,7 @@ In this module you have the option to :
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.20 |
+| terraform | >= 0.12.0 |
 
 ## Providers
 
