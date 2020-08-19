@@ -11,7 +11,7 @@ resource "aws_cloudtrail" "audit" {
     include_management_events = true
   }
 
-  cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail[0].arn
+  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail[0].arn}:*"
   cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_logs[0].arn
 
   lifecycle {
