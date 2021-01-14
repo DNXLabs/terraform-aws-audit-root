@@ -1,7 +1,7 @@
 resource "aws_cloudtrail" "audit" {
   count                 = var.cloudtrail ? 1 : 0
   name                  = "${var.org_name}-cloudtrail"
-  s3_bucket_name        = var.cloudtrail_s3_bucket_id
+  s3_bucket_name        = aws_s3_bucket.cloudtrail[0].id
   is_multi_region_trail = true
   is_organization_trail = true
   kms_key_id            = aws_kms_key.cloudtrail[0].arn
@@ -66,7 +66,8 @@ EOF
 }
 
 resource "aws_cloudwatch_log_group" "cloudtrail" {
-  count      = var.cloudtrail ? 1 : 0
-  name       = "${var.org_name}-cloudtrail"
-  kms_key_id = aws_kms_key.cloudtrail[0].arn
+  count             = var.cloudtrail ? 1 : 0
+  name              = "${var.org_name}-cloudtrail"
+  kms_key_id        = aws_kms_key.cloudtrail[0].arn
+  retention_in_days = var.cloudtrail_log_group_retention_in_days
 }
