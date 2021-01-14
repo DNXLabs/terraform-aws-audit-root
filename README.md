@@ -28,21 +28,23 @@ In this module you have the option to :
 | Name | Version |
 |------|---------|
 | aws | n/a |
+| aws.audit | n/a |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| account\_ids | AWS Account IDs under Auditing for the organization | `list` | `[]` | no |
 | cloudtrail | Enable/Disables cloudtrail | `bool` | `true` | no |
-| cloudtrail\_s3\_bucket\_id | S3 bucket for cloudtrail logs | `string` | `""` | no |
-| guardduty | Enable/Disables guardduty | `bool` | `true` | no |
+| cloudtrail\_log\_group\_retention\_in\_days | Days for log group retention | `number` | `365` | no |
+| master\_account\_id | Master account ID | `any` | n/a | yes |
 | org\_name | Name for this organization (not actually used in API call) | `any` | n/a | yes |
+| organization\_id | Organization ID for CloudTrail access | `any` | n/a | yes |
+| s3\_days\_until\_glacier | How many days before transitioning files to Glacier | `number` | `90` | no |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| guardduty\_detector\_id | GuardDuty Detector ID of master account |
+No output.
 
 <!--- END_TF_DOCS --->
 
