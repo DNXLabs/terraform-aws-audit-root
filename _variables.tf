@@ -28,3 +28,8 @@ variable "organization_id" {
 variable "master_account_id" {
   description = "Master account ID"
 }
+
+variable "enable_log_file_validation" {
+  description = "Enable log file validation for CloudConformity"
+  default     = false
+}
