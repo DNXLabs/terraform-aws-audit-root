@@ -37,6 +37,7 @@ In this module you have the option to :
 | account\_ids | AWS Account IDs under Auditing for the organization | `list` | `[]` | no |
 | cloudtrail | Enable/Disables cloudtrail | `bool` | `true` | no |
 | cloudtrail\_log\_group\_retention\_in\_days | Days for log group retention | `number` | `365` | no |
+| enable\_log\_file\_validation | Enable log file validation for CloudConformity | `bool` | `false` | no |
 | master\_account\_id | Master account ID | `any` | n/a | yes |
 | org\_name | Name for this organization (not actually used in API call) | `any` | n/a | yes |
 | organization\_id | Organization ID for CloudTrail access | `any` | n/a | yes |
