@@ -1,10 +1,11 @@
 resource "aws_cloudtrail" "audit" {
-  count                 = var.cloudtrail ? 1 : 0
-  name                  = "${var.org_name}-cloudtrail"
-  s3_bucket_name        = aws_s3_bucket.cloudtrail[0].id
-  is_multi_region_trail = true
-  is_organization_trail = true
-  kms_key_id            = aws_kms_key.cloudtrail[0].arn
+  count                      = var.cloudtrail ? 1 : 0
+  name                       = "${var.org_name}-cloudtrail"
+  s3_bucket_name             = aws_s3_bucket.cloudtrail[0].id
+  is_multi_region_trail      = true
+  enable_log_file_validation = var.enable_log_file_validation
+  is_organization_trail      = true
+  kms_key_id                 = aws_kms_key.cloudtrail[0].arn
 
   event_selector {
     read_write_type           = "All"
